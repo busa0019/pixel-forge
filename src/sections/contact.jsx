@@ -1,26 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 
 export default function Contact() {
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    message: ""
+    message: "",
   });
+
+  useEffect(() => {
+    const state = location.state;
+    if (state?.message) {
+      setFormData((prev) => ({
+        ...prev,
+        message: state.message,
+      }));
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
     console.log("Form submitted:", formData);
-    // Reset form after submission
     setFormData({ name: "", email: "", phone: "", message: "" });
     alert("Thank you for your message! We'll get back to you soon.");
   };
@@ -30,49 +41,47 @@ export default function Contact() {
       icon: <FaPhoneAlt className="text-[#4b3f28] text-xl" />,
       title: "Phone",
       details: "+1 (416) 555-7890",
-      link: "tel:+14165557890"
+      link: "tel:+14165557890",
     },
     {
       icon: <FaEnvelope className="text-[#4b3f28] text-xl" />,
       title: "Email",
       details: "hello@pixelforgestudios.com",
-      link: "mailto:hello@pixelforgestudios.com"
+      link: "mailto:hello@pixelforgestudios.com",
     },
     {
       icon: <FaMapMarkerAlt className="text-[#4b3f28] text-xl" />,
       title: "Address",
       details: "123 Design District, Toronto, ON, Canada",
-      link: "#"
+      link: "#",
     },
     {
       icon: <FaClock className="text-[#4b3f28] text-xl" />,
       title: "Business Hours",
       details: "Mon - Fri: 9AM - 6PM",
-      link: "#"
-    }
+      link: "#",
+    },
   ];
 
   return (
     <section id="contact" className="py-20 md:py-28 bg-gradient-to-b from-white to-gray-100">
       <div className="container mx-auto px-4 md:px-20">
-        {/* Section Header */}
         <div className="text-center mb-16" data-aos="fade-up" data-aos-delay="100">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-            Get In Touch
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">Get In Touch</h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Have a project in mind or want to discuss how we can help? 
-            Reach out to us using the form below or through our contact information.
+            Have a project in mind or want to discuss how we can help? Reach out to us using the form below or through
+            our contact information.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Column - Contact Form */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-gray-100" data-aos="fade-right" data-aos-delay="200">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Send Us a Message
-            </h3>
-            
+          <div
+            className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-gray-100"
+            data-aos="fade-right"
+            data-aos-delay="200"
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -90,7 +99,7 @@ export default function Contact() {
                     placeholder="John Doe"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="email" className="block text-gray-700 mb-2 semiboldText">
                     Email Address *
@@ -133,10 +142,10 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows="5"
+                  rows={5}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4b3f28] focus:border-[#4b3f28] outline-none transition resize-none"
                   placeholder="Tell us about your project or inquiry..."
-                ></textarea>
+                />
               </div>
 
               <button
@@ -150,26 +159,25 @@ export default function Contact() {
             </form>
           </div>
 
-          {/* Right Column - Contact Information */}
           <div className="space-y-8">
-            <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-gray-100" data-aos="fade-left" data-aos-delay="300">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">
-                Contact Information
-              </h3>
-              
+            <div
+              className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-gray-100"
+              data-aos="fade-left"
+              data-aos-delay="300"
+            >
+              <h3 className="text-2xl font-bold text-gray-900 mb-8">Contact Information</h3>
+
               <div className="space-y-8">
                 {contactInfo.map((item, index) => (
                   <div key={index} className="flex items-start space-x-4">
-                    <div className="bg-[#f9f6f1] p-3 rounded-xl border border-[#4b3f28]/10">
-                      {item.icon}
-                    </div>
+                    <div className="bg-[#f9f6f1] p-3 rounded-xl border border-[#4b3f28]/10">{item.icon}</div>
                     <div>
-                      <h4 className="font-bold text-gray-900 mb-1">
-                        {item.title}
-                      </h4>
-                      <a 
+                      <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
+                      <a
                         href={item.link}
-                        className={`text-gray-600 hover:text-[#4b3f28] transition ${item.link === "#" ? "cursor-default" : ""}`}
+                        className={`text-gray-600 hover:text-[#4b3f28] transition ${
+                          item.link === "#" ? "cursor-default" : ""
+                        }`}
                       >
                         {item.details}
                       </a>
@@ -178,17 +186,14 @@ export default function Contact() {
                 ))}
               </div>
 
-              {/* Social Media Links */}
               <div className="mt-12 pt-8 border-t border-gray-100">
-                <h4 className="font-bold text-gray-900 mb-4">
-                  Follow Us
-                </h4>
+                <h4 className="font-bold text-gray-900 mb-4">Follow Us</h4>
                 <div className="flex space-x-4">
                   {[
                     { name: "Twitter", bg: "bg-[#4b3f28]/10", icon: "𝕏", hover: "hover:bg-[#4b3f28] hover:text-white" },
                     { name: "Instagram", bg: "bg-[#4b3f28]/10", icon: "IG", hover: "hover:bg-[#4b3f28] hover:text-white" },
                     { name: "LinkedIn", bg: "bg-[#4b3f28]/10", icon: "IN", hover: "hover:bg-[#4b3f28] hover:text-white" },
-                    { name: "Facebook", bg: "bg-[#4b3f28]/10", icon: "FB", hover: "hover:bg-[#4b3f28] hover:text-white" }
+                    { name: "Facebook", bg: "bg-[#4b3f28]/10", icon: "FB", hover: "hover:bg-[#4b3f28] hover:text-white" },
                   ].map((social, index) => (
                     <a
                       key={index}
@@ -203,8 +208,11 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* FAQ/Quick Info */}
-            <div className="bg-gradient-to-r from-[#4b3f28]/5 to-[#4b3f28]/10 rounded-2xl p-8 border border-[#4b3f28]/20" data-aos="fade-up" data-aos-delay="400">
+            <div
+              className="bg-gradient-to-r from-[#4b3f28]/5 to-[#4b3f28]/10 rounded-2xl p-8 border border-[#4b3f28]/20"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               <h4 className="font-bold text-gray-900 mb-4 flex items-center">
                 <span className="w-2 h-2 bg-[#4b3f28] rounded-full mr-2"></span>
                 Quick Response Time
@@ -212,7 +220,7 @@ export default function Contact() {
               <p className="text-gray-600 mb-4">
                 We typically respond to inquiries within 24 hours during business days.
               </p>
-              
+
               <h4 className="font-bold text-gray-900 mb-4 flex items-center mt-6">
                 <span className="w-2 h-2 bg-[#4b3f28] rounded-full mr-2"></span>
                 Free Consultation
@@ -223,8 +231,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
-
-        </div>
+      </div>
     </section>
   );
 }

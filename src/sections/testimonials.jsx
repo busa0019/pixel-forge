@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaQuoteLeft, FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 export default function Testimonials() {
   const testimonials = [
     {
@@ -284,12 +284,12 @@ export default function Testimonials() {
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Join our growing list of satisfied clients who have transformed their digital presence.
           </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center px-8 py-3 bg-[#4b3f28] text-white font-semibold rounded-lg hover:bg-[#3b311d] transition-colors shadow-md hover:shadow-lg"
-          >
-            Start Your Project
-          </a>
+          <Link
+  to="/contact"
+  className="inline-flex items-center px-8 py-3 bg-[#4b3f28] text-white font-semibold rounded-lg hover:bg-[#3b311d] transition-colors shadow-md hover:shadow-lg"
+>
+  Start Your Project
+</Link>
         </div>
       </div>
 

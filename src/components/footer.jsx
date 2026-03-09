@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
    FaFacebookF,
   FaInstagram,
@@ -37,33 +38,13 @@ export default function Footer() {
         {/* Quick Links - Second Column */}
         <div className="flex flex-col items-start lg:ml-12">
           <h4 className="text-lg boldText mb-4 text-black">Quick Links</h4>
-          <ul className="space-y-3 text-[#333333] semiboldText text-base/6">
-            <li>
-              <a href="#home" className="hover:text-blue transition">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#about" className="hover:text-blue transition">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="#services" className="hover:text-blue transition">
-                Services
-              </a>
-            </li>
-            <li>
-              <a href="#projects" className="hover:text-blue transition">
-                Projects
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="hover:text-blue transition">
-                Contact
-              </a>
-            </li>
-          </ul>
+<ul className="space-y-3 text-[#333333] semiboldText text-base/6">
+  <li><Link to="/" className="hover:text-blue transition">Home</Link></li>
+  <li><Link to="/#about" className="hover:text-blue transition">About</Link></li>
+  <li><Link to="/#services" className="hover:text-blue transition">Services</Link></li>
+  <li><Link to="/#projects" className="hover:text-blue transition">Projects</Link></li>
+  <li><Link to="/contact" className="hover:text-blue transition">Contact</Link></li>
+</ul>
         </div>
          <div className="flex flex-col items-start">
           <h4 className="text-lg boldText mb-4 text-black">Legal</h4>
